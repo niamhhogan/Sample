@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-analytics.js";
-import { getDatabase, ref, push } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
+import { getDatabase, ref, push, onValue } from "https://www.gstatic.com/firebasejs/12.4.0/firebase-database.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -35,8 +35,37 @@ function writeUserData() {
         Temperature: parseInt(currentTemp.value), 
         Time: timestamp
     });
+    
+    // Clear input after submitting
+    currentTemp.value = '';
+}
+
+// Function to display temperature data
+function displayTemperatures() {
+    let tempbranch = ref(database, 'temperatures');
+    
+    onValue(tempbranch, (snapshot) => {
+        let temperatureList = document.getElementById('temperatureList');
+        temperatureList.innerHTML = ''; // Clear existing list
+        
+        let data = snapshot.val();
+        if (data) {
+            // Convert object to array and reverse to show newest first
+            let temperatures = Object.entries(data).reverse();
+            
+            temperatures.forEach(([key, value]) => {
+                let li = document.createElement('li');
+                li.textContent = `Temperature: ${value.Temperature}°C - Time: ${value.Time}`;
+                temperatureList.appendChild(li);
+            });
+        } else {
+            temperatureList.innerHTML = '<li>No temperature data yet</li>';
+        }
+    });
 }
 
 // Add event listener to the button
 document.getElementById('submitBtn').addEventListener('click', writeUserData);
 
+// Start displaying temperatures when page loads
+displayTemperatures();
