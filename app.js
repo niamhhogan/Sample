@@ -37,5 +37,6 @@ function writeUserData() {
     });
 }
 
-// Make function available globally for onclick
-window.writeUserData = writeUserData;
+// Add event listener to the button
+document.getElementById('submitBtn').addEventListener('click', writeUserData);
+
