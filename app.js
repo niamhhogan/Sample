@@ -64,8 +64,11 @@ function displayTemperatures() {
     });
 }
 
-// Add event listener to the button
-document.getElementById('submitBtn').addEventListener('click', writeUserData);
-
-// Start displaying temperatures when page loads
-displayTemperatures();
+// Wait for page to load before adding event listeners
+window.addEventListener('DOMContentLoaded', () => {
+    // Add event listener to the button
+    document.getElementById('submitBtn').addEventListener('click', writeUserData);
+    
+    // Start displaying temperatures when page loads
+    displayTemperatures();
+});
