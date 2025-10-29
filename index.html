@@ -3,12 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Write to Firebase</title>
+    <title>Temperature Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #temperatureList {
+            list-style: none;
+            padding: 0;
+        }
+        #temperatureList li {
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #f0f0f0;
+            border-radius: 3px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Gather Temperature</h1>    
-    Temperature: <input type="text" id="userdata" />
-    <input type="button" value="Submit Data" onclick="writeUserData()" />
+    <h1>Temperature Dashboard</h1>
+    
+    <div class="section">
+        <h2>Add Temperature</h2>
+        Temperature: <input type="text" id="userdata" />
+        <input type="button" id="submitBtn" value="Submit Data" />
+    </div>
+
+    <div class="section">
+        <h2>Temperature Readings</h2>
+        <ul id="temperatureList"></ul>
+    </div>
 
     <script type="module" src="app.js"></script>
 </body>
